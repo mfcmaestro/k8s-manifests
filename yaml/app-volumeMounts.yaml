@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world
+spec:
+  containers:
+  - name: hello-world
+    image: busybox
+    command: ['sh', '-c', 'echo Hello world']
+    ports:
+    - containerPort: 8000
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8000
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8000
+    volumeMounts:
+    - mountPath: /data
+      name: data-volume
+    - mountPath: /var/lib/app
+      name: app-volume
+  volumes:
+  - name: data-volume
+    emptyDir: {}
+  - name: app-volume
+    emptyDir: {}

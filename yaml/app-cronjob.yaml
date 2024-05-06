@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: text-generator
+spec:
+  schedule: "0 8 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: text-generator
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - echo "Generate some text"
+          restartPolicy: OnFailure
